@@ -26,14 +26,5 @@ style:
 	black .
 	isort --profile black .
 
-build: clean
-	flit build
-
-pypi: build
-	flit publish
-
 push:
 	git push && git push --tags
-
-install: style clean
-	flit install --deps none
