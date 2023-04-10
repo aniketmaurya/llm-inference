@@ -1,0 +1,68 @@
+site_name: TEMPLATE_NAME
+site_description: TEMPLATE_DESCRIPTION
+site_author: AUTHOR NAME
+copyright: 'Copyright &copy; 2021 AUTHOR NAME'
+
+banner_url: https://IMAGE_URL
+repo_url: https://github.com/aniketmaurya/python-project-template/
+repo_name: aniketmaurya/python-project-template
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    - scheme: default
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+
+    - scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+
+  logo: https://IMAGE_URL
+  favicon: https://IMAGE_URL
+  features:
+    - search.suggest
+    - search.highlight
+
+  # Necessary for search to work properly
+  include_search_page: false
+  search_index_only: true
+
+markdown_extensions:
+  - meta
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - toc:
+      permalink: true
+
+plugins:
+  - git-revision-date-localized
+  - search
+  - autorefs
+  - mkdocs-jupyter
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: false
+
+extra:
+  homepage: https://TEMPLATE_URL
+
+nav:
+  - Introduction: 'index.md'
+  - Release Notes: 'CHANGELOG.md'
