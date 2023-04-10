@@ -1,2 +1,4 @@
-# python-project-template
-Template for building open-source Python projects
+# LLaMA Inference API 🦙
+
+Inference API for LLaMA
+
