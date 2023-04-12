@@ -5,7 +5,6 @@ from typing import Optional
 
 import lightning as L
 import torch
-
 from lit_llama import LLaMA, Tokenizer
 from lit_llama.utils import EmptyInitOnDevice
 
@@ -73,7 +72,6 @@ class LLaMAInference:
         dtype: Optional[str] = None,
         quantize: Optional[str] = None,
     ) -> None:
-
         self.fabric = fabric = L.Fabric(accelerator=accelerator, devices=1)
 
         if dtype is not None:
@@ -104,9 +102,8 @@ class LLaMAInference:
         max_new_tokens: int = 50,
         top_k: int = 200,
         temperature: float = 0.8,
-    )->str:
+    ) -> str:
         return self.generate(prompt, max_new_tokens, top_k, temperature)
-
 
     def generate(
         self,
@@ -114,7 +111,7 @@ class LLaMAInference:
         max_new_tokens: int = 50,
         top_k: int = 200,
         temperature: float = 0.8,
-    )->str:
+    ) -> str:
         encoded_prompt = self.tokenizer.encode(
             prompt, bos=True, eos=False, device=self.fabric.device
         )
