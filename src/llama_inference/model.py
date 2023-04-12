@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 from pathlib import Path
@@ -5,8 +6,13 @@ from typing import Optional
 
 import lightning as L
 import torch
+from dotenv import load_dotenv
 from lit_llama import LLaMA, Tokenizer
 from lit_llama.utils import EmptyInitOnDevice
+
+load_dotenv()
+
+WEIGHTS_PATH = os.environ.get("WEIGHTS")
 
 
 @torch.no_grad()
@@ -73,6 +79,10 @@ class LLaMAInference:
         quantize: Optional[str] = None,
     ) -> None:
         self.fabric = fabric = L.Fabric(accelerator=accelerator, devices=1)
+
+        if not checkpoint_path and WEIGHTS_PATH:
+            checkpoint_path = f"{WEIGHTS_PATH}/{model_size}/state_dict.pth"
+            tokenizer_path = f"{WEIGHTS_PATH}/tokenizer.model"
 
         if dtype is not None:
             dt = getattr(torch, dtype, None)

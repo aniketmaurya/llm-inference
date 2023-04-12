@@ -1,13 +1,15 @@
-from lightning.app.components import PythonServer
-import lightning as L
 from typing import Any
-from llama_inference.api import LLaMAInference
 
+import lightning as L
+from lightning.app.components import PythonServer
 from pydantic import BaseModel
+
+from llama_inference.model import LLaMAInference
 
 
 class PromptRequest(BaseModel):
     prompt: str
+
 
 class Response(BaseModel):
     result: str
@@ -21,6 +23,7 @@ class ServeLLaMA(PythonServer):
         result = self._model(request.prompt)
         return Response(result=result)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     component = ServeLLaMA(input_type=PromptRequest, output_type=Response)
     app = L.LightningApp(component)
