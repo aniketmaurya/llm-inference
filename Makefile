@@ -28,3 +28,14 @@ style:
 
 push:
 	git push && git push --tags
+
+build:
+	python -m build
+
+publish-test:
+		$(style clean build)
+		twine upload -r testpypi dist/*
+
+publish-prod:
+		$(style clean build)
+		twine upload dist/*

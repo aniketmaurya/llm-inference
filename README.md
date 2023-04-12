@@ -6,6 +6,12 @@ Inference API for LLaMA
 **To use this library you must install `lit-llama`**
 
 ```
+pip install llama-inference
+```
+
+or
+
+```
 pip install git+https://github.com/Lightning-AI/lit-llama.git@main
 ```
 
