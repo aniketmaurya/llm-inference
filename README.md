@@ -2,18 +2,17 @@
 
 Inference API for LLaMA
 
-
-**To use this library you must install `lit-llama`**
-
 ```
 pip install llama-inference
+
+or 
+
+pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main`
 ```
 
-or
 
-```
-pip install git+https://github.com/Lightning-AI/lit-llama.git@main
-```
+**To use this library you must install `lit-llama`**: `pip install git+https://github.com/Lightning-AI/lit-llama.git@main`
+
 
 ```python
 from llama_inference import LLaMAInference
