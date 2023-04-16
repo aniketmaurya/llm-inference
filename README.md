@@ -10,9 +10,7 @@ or
 pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main`
 ```
 
-
-**To use this library you must install `lit-llama`**: `pip install git+https://github.com/Lightning-AI/lit-llama.git@main`
-
+## For Inference
 
 ```python
 from llama_inference import LLaMAInference
@@ -26,4 +24,22 @@ tokenizer_path = f"{WEIGHTS_PATH}/lit-llama/tokenizer.model"
 model = LLaMAInference(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path, dtype="bfloat16")
 
 print(model("New York is located in"))
+```
+
+
+## For deploying as a REST API
+
+Create a Python file `app.py` and initialize the `ServeLLaMA` App.
+
+```python
+# app.py
+from llama_inference import ServeLLaMA
+import lightning as L
+
+component = ServeLLaMA(input_type=PromptRequest, output_type=Response)
+app = L.LightningApp(component)
+```
+
+```bash
+lightning run app app.py
 ```

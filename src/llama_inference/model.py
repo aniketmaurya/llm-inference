@@ -2,7 +2,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 import lightning as L
 import torch
@@ -71,14 +71,15 @@ def _generate(
 class LLaMAInference:
     def __init__(
         self,
-        accelerator: str = "auto",
-        checkpoint_path: Optional[Path] = None,
-        tokenizer_path: Optional[Path] = None,
         model_size: str = "7B",
         dtype: Optional[str] = None,
         quantize: Optional[str] = None,
+        checkpoint_path: Optional[Path] = None,
+        tokenizer_path: Optional[Path] = None,
+        accelerator: str = "auto",
+        devices: int = 1,
     ) -> None:
-        self.fabric = fabric = L.Fabric(accelerator=accelerator, devices=1)
+        self.fabric = fabric = L.Fabric(accelerator=accelerator, devices=devices)
 
         if not checkpoint_path and WEIGHTS_PATH:
             checkpoint_path = f"{WEIGHTS_PATH}/{model_size}/state_dict.pth"
@@ -102,9 +103,12 @@ class LLaMAInference:
                 f"Time to load model: {time.time() - t0:.02f} seconds.", file=sys.stderr
             )
 
-        model.eval()
+        self.eval()
         self.model = fabric.setup_module(model)
         self.tokenizer = Tokenizer(tokenizer_path)
+
+    def eval(self):
+        self.model.eval()
 
     def __call__(
         self,
@@ -135,3 +139,13 @@ class LLaMAInference:
             top_k=top_k,
         )[0]
         return self.tokenizer.decode(y)
+
+    def load_state_dict_from_path(self, checkpoint_path: Union[Path, str]):
+        checkpoints = torch.load(checkpoint_path)
+        self.model.load_state_dict(checkpoints, strict=False)
+
+    def load_lora_weights(self, checkpoint_path: str):
+        self.load_state_dict_from_path(checkpoint_path)
+
+    def load_adapters_weights(self, checkpoint_path: str):
+        self.load_state_dict_from_path(checkpoint_path)
