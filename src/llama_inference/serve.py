@@ -25,7 +25,7 @@ class ServeLLaMA(PythonServer):
 
     def setup(self, *args: Any, **kwargs: Any) -> None:
         self._model = LLaMAInference(
-            tokenizer_path=self.checkpoint_path, tokenizer_path=self.tokenizer_path
+            checkpoint_path=self.checkpoint_path, tokenizer_path=self.tokenizer_path
         )
 
     def predict(self, request: PromptRequest) -> Any:
