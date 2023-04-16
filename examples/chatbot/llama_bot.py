@@ -21,9 +21,9 @@ class ChatBotApp(L.LightningFlow):
         self.llm_url = ""
 
     def run(self):
-        
         self.llm_serve.run()
         if self.llm_serve.url:
+            print("url is ready:", self.llm_serve.url)
             self.llm_url = self.llm_serve.url
 
     def configure_layout(self):
