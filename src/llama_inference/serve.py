@@ -16,8 +16,17 @@ class Response(BaseModel):
 
 
 class ServeLLaMA(PythonServer):
+    def __init__(
+        self, input_type, output_type, checkpoint_path: str, tokenizer_path: str
+    ):
+        super().__init__(input_type, output_type)
+        self.checkpoint_path = checkpoint_path
+        self.tokenizer_path = tokenizer_path
+
     def setup(self, *args: Any, **kwargs: Any) -> None:
-        self._model = LLaMAInference(*args, **kwargs)
+        self._model = LLaMAInference(
+            tokenizer_path=self.checkpoint_path, checkpoint_path=self.checkpoint_path
+        )
 
     def predict(self, request: PromptRequest) -> Any:
         result = self._model(request.prompt)
