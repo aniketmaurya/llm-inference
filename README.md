@@ -42,7 +42,7 @@ Create a Python file `app.py` and initialize the `ServeLLaMA` App.
 
 ```python
 # app.py
-from llama_inference.serve import ServeLLaMA, Response
+from llama_inference.serve import ServeLLaMA, Response, PromptRequest
 
 import lightning as L
 
