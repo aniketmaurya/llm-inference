@@ -5,9 +5,9 @@ Inference API for LLaMA
 ```
 pip install llama-inference
 
-or 
+or
 
-pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main`
+pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main
 ```
 
 ## For Inference
@@ -33,7 +33,8 @@ Create a Python file `app.py` and initialize the `ServeLLaMA` App.
 
 ```python
 # app.py
-from llama_inference import ServeLLaMA
+from llama_inference.serve import ServeLLaMA, Response
+
 import lightning as L
 
 component = ServeLLaMA(input_type=PromptRequest, output_type=Response)
