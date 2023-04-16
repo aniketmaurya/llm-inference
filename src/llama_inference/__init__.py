@@ -1,6 +1,6 @@
 """Inference API for LLaMA"""
 
-from .model import LLaMAInference
 from .app import ServeLLaMA
+from .model import LLaMAInference
 
 __version__ = "0.0.1"

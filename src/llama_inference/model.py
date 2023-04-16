@@ -77,7 +77,7 @@ class LLaMAInference:
         checkpoint_path: Optional[Path] = None,
         tokenizer_path: Optional[Path] = None,
         accelerator: str = "auto",
-        devices:int =1
+        devices: int = 1,
     ) -> None:
         self.fabric = fabric = L.Fabric(accelerator=accelerator, devices=devices)
 
@@ -140,7 +140,7 @@ class LLaMAInference:
         )[0]
         return self.tokenizer.decode(y)
 
-    def load_state_dict_from_path(self, checkpoint_path:Union[Path, str]):
+    def load_state_dict_from_path(self, checkpoint_path: Union[Path, str]):
         checkpoints = torch.load(checkpoint_path)
         self.model.load_state_dict(checkpoints, strict=False)
 
