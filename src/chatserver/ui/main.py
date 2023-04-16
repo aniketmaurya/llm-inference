@@ -3,7 +3,7 @@ import rich
 import streamlit as st
 from streamlit_chat import message
 
-from chatserver.chatbot_chain import lit_chain
+from chatserver.chain import lit_chain
 
 
 def run(lightning_app_state):

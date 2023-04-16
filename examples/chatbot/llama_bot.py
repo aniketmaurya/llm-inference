@@ -1,14 +1,12 @@
-import os
-
 import lightning as L
 import lightning.app.frontend as frontend
 
 from chatserver.ui import ui_render_fn
 from llama_inference.serve import PromptRequest, Response, ServeLLaMA
 
-WEIGHTS_PATH = os.environ["WEIGHTS"]
-checkpoint_path = f"{WEIGHTS_PATH}/lit-llama/7B/state_dict.pth"
-tokenizer_path = f"{WEIGHTS_PATH}/lit-llama/tokenizer.model"
+
+checkpoint_path = "weights/state_dict.pth"
+tokenizer_path = "weights/tokenizer.model"
 
 
 class ChatBotApp(L.LightningFlow):
