@@ -47,7 +47,7 @@ class LightningChain(LLM, BaseModel):
             url=self.url + "/predict", headers=headers, json=json_data
         )
         logger.error(response.raise_for_status())
-        return response.json()["text"]
+        return response.json()["result"]
 
     @property
     def _llm_type(self) -> str:
