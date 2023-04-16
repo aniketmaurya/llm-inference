@@ -3,14 +3,13 @@ import logging
 from typing import List, Optional
 
 import requests
+from langchain.chains import ConversationChain
+from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
 from langchain.llms.base import LLM
 from pydantic import BaseModel
 
-from langchain.chains import ConversationChain
-from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
-
-
 logger = logging.getLogger(__name__)
+
 
 def lit_chain(url: str):
     return load_chain(LightningChain(url=url))
@@ -28,8 +27,6 @@ def load_chain(llm):
         llm=llm, verbose=True, memory=memory, output_key=output_key, input_key=input_key
     )
     return chain
-
-
 
 
 class LightningChain(LLM, BaseModel):
