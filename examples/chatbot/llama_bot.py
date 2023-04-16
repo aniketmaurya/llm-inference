@@ -17,10 +17,11 @@ class ChatBotApp(L.LightningFlow):
             output_type=Response,
             checkpoint_path=checkpoint_path,
             tokenizer_path=tokenizer_path,
-        )
+        )  
         self.llm_url = ""
 
     def run(self):
+        
         self.llm_serve.run()
         if self.llm_serve.url:
             self.llm_url = self.llm_serve.url
