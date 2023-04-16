@@ -3,7 +3,6 @@ import os
 import lightning as L
 import lightning.app.frontend as frontend
 
-from chatserver.components import LLMServe
 from chatserver.ui import ui_render_fn
 from llama_inference.serve import PromptRequest, Response, ServeLLaMA
 
@@ -15,11 +14,6 @@ tokenizer_path = f"{WEIGHTS_PATH}/lit-llama/tokenizer.model"
 class ChatBotApp(L.LightningFlow):
     def __init__(self):
         super().__init__()
-        # self.llm_serve = LLMServe(
-        #     model_id="google/flan-ul2", cloud_compute=L.CloudCompute("gpu")
-        # )
-        checkpoint_path = None
-        tokenizer_path = None
         self.llm_serve = ServeLLaMA(
             input_type=PromptRequest,
             output_type=Response,
