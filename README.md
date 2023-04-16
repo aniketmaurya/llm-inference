@@ -1,6 +1,6 @@
 # LLaMA Inference API 🦙
 
-![project banner](./assets/llama-inference-api-min.png)
+![project banner](https://github.com/aniketmaurya/LLaMA-Inference-API/raw/main/assets/llama-inference-api-min.png)
 
 Inference API for LLaMA
 
