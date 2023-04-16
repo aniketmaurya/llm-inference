@@ -103,7 +103,7 @@ class LLaMAInference:
                 f"Time to load model: {time.time() - t0:.02f} seconds.", file=sys.stderr
             )
 
-        self.eval()
+        model.eval()
         self.model = fabric.setup_module(model)
         self.tokenizer = Tokenizer(tokenizer_path)
 
