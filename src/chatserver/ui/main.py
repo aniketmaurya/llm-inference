@@ -1,9 +1,13 @@
 """Python file to serve as the frontend"""
+import logging
+
 import rich
 import streamlit as st
 from streamlit_chat import message
 
-from chatserver.chain import lit_chain
+from chatserver.chain import build_server_chain
+
+logger = logging.getLogger(__name__)
 
 
 def run(lightning_app_state):
@@ -14,8 +18,9 @@ def run(lightning_app_state):
     print("lightning_app_state", lightning_app_state)
 
     if "model" not in st.session_state:
-        chain = lit_chain(lightning_app_state.llm_url)
+        chain = build_server_chain(lightning_app_state.llm_url)
         st.session_state["model"] = chain
+        logger.info("loaded model into state session")
 
     else:
         chain = st.session_state["model"]

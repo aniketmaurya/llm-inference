@@ -17,7 +17,11 @@ class Response(BaseModel):
 
 class ServeLLaMA(PythonServer):
     def __init__(
-        self, input_type, output_type, checkpoint_path: str=None, tokenizer_path: str=None
+        self,
+        input_type,
+        output_type,
+        checkpoint_path: str = None,
+        tokenizer_path: str = None,
     ):
         super().__init__(input_type, output_type)
         self.checkpoint_path = checkpoint_path
@@ -25,7 +29,9 @@ class ServeLLaMA(PythonServer):
 
     def setup(self, *args: Any, **kwargs: Any) -> None:
         self._model = LLaMAInference(
-            checkpoint_path=self.checkpoint_path, tokenizer_path=self.tokenizer_path, dtype="bfloat16"
+            checkpoint_path=self.checkpoint_path,
+            tokenizer_path=self.tokenizer_path,
+            dtype="bfloat16",
         )
 
     def predict(self, request: PromptRequest) -> Any:
@@ -34,5 +40,8 @@ class ServeLLaMA(PythonServer):
 
 
 if __name__ == "__main__":
-    component = ServeLLaMA(input_type=PromptRequest, output_type=Response,)
+    component = ServeLLaMA(
+        input_type=PromptRequest,
+        output_type=Response,
+    )
     app = L.LightningApp(component)
