@@ -1,11 +1,44 @@
 import logging
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import requests
 from langchain.llms.base import LLM
 from pydantic import BaseModel
 
+from llama_inference import LLaMAInference
+
 logger = logging.getLogger(__name__)
+
+
+class DummyLLM(LLM, BaseModel):
+    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+        return f"Bot: {prompt}"
+
+    @property
+    def _llm_type(self) -> str:
+        """Return type of llm."""
+        return "Dummy LLM"
+
+
+class LLaMALLM(LLM, BaseModel):
+    checkpoint_path: str = ""
+    tokenizer_path: str = ""
+    model: Any = None
+
+    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+        if not self.model:
+            self.model = LLaMAInference(
+                checkpoint_path=self.checkpoint_path,
+                tokenizer_path=self.tokenizer_path,
+                dtype="bfloat16",
+            )
+
+        return self.model(prompt)
+
+    @property
+    def _llm_type(self) -> str:
+        """Return type of llm."""
+        return "LLaMA LLM"
 
 
 class ServerLLM(LLM, BaseModel):
