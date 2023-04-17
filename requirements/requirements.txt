@@ -1,2 +1,2 @@
-python-dotenv>=1.0.0
+python-dotenv
 lightning>=2.0.0
