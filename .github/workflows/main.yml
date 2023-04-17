@@ -48,6 +48,7 @@ jobs:
           pip --version
           python -m pip install --upgrade pip coverage pytest
           pip install .
+          pip install ".[chatbot]"
           pip list
         shell: bash
 
