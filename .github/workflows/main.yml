@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9, "3.10"]
         include:
           - os: ubuntu-latest
             path: ~/.cache/pip
@@ -20,7 +20,7 @@ jobs:
             path: ~/Library/Caches/pip
     env:
       OS: ${{ matrix.os }}
-      PYTHON: '3.7'
+      PYTHON: '3.10'
 
 
     steps:
@@ -43,10 +43,15 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install dependencies
+        env:
+            TORCH_URL: https://download.pytorch.org/whl/cpu/torch_stable.html
         run: |
           python --version
           pip --version
           python -m pip install --upgrade pip coverage pytest
+          pip install . --quiet --find-links $TORCH_URL
+          pip install ".[chatbot]" --quiet --find-links $TORCH_URL
+          pip install lit-llama@git+https://github.com/Lightning-AI/lit-llama.git@main
           pip list
         shell: bash
 
@@ -74,10 +79,3 @@ jobs:
           env_vars: OS,PYTHON
           name: codecov-umbrella
           fail_ci_if_error: false
-
-#      - name: SonarCloud Scan
-#        if: runner.os != 'macOS' &&  env.SONAR_TOKEN != null
-#        uses: SonarSource/sonarcloud-github-action@master
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

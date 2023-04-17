@@ -7,8 +7,12 @@ Inference API for LLaMA
 ```
 pip install llama-inference
 
-or
+# to use chatbot
+pip install llama-inference[chatbot]
+```
 
+### Install from main branch
+```bash
 pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main
 ```
 
