@@ -30,7 +30,9 @@ def build_server_chain(
 
 
 class BaseChatBot:
-    def __init__(self, llm, input_key="input", output_key="response", verbose=False) -> None:
+    def __init__(
+        self, llm, input_key="input", output_key="response", verbose=False
+    ) -> None:
         memory = ConversationSummaryBufferMemory(
             llm=llm, output_key=output_key, input_key=input_key
         )
@@ -45,7 +47,7 @@ class BaseChatBot:
     def send(self, msg: str) -> str:
         return self.chain.predict(input=msg)
 
-    def predict(self, input: str)-> str:
+    def predict(self, input: str) -> str:
         return self.chain.predict(input=input)
 
     @property
@@ -60,13 +62,18 @@ class DummyChatBot(BaseChatBot):
     def __init__(self, verbose=True) -> None:
         super().__init__(llm=DummyLLM(), verbose=verbose)
 
+
 class ServerChatBot(BaseChatBot):
-    def __init__(self, url: str, input_key="input", output_key="response", verbose=False) -> None:
+    def __init__(
+        self, url: str, input_key="input", output_key="response", verbose=False
+    ) -> None:
         llm = ServerLLM(url=url)
         super().__init__(llm, input_key, output_key, verbose)
 
 
 class LLaMAChatBot(BaseChatBot):
-    def __init__(self, checkpoint_path: str, tokenizer_path: str, verbose=False) -> None:
+    def __init__(
+        self, checkpoint_path: str, tokenizer_path: str, verbose=False
+    ) -> None:
         llm = LLaMALLM(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path)
         super().__init__(llm=llm, verbose=verbose)
