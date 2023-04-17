@@ -7,6 +7,7 @@ from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
 
 from .base import DummyLLM, ServerLLM
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -56,3 +57,10 @@ class BaseChatBot:
 class DummyChatBot(BaseChatBot):
     def __init__(self) -> None:
         super().__init__(llm=DummyLLM())
+
+
+class LLaMAChatBot(BaseChatBot):
+    def __init__(self, checkpoint_path:str, tokenizer_path:str) -> None:
+        from llama_inference import LLaMAInference
+        model = LLaMAInference(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path, dtype="bfloat16")
+        super().__init__(llm=model)
