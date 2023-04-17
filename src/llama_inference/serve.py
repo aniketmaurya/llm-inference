@@ -17,7 +17,7 @@ class Response(BaseModel):
 
 class ServeLLaMA(PythonServer):
     def __init__(
-        self, input_type, output_type, checkpoint_path: str, tokenizer_path: str
+        self, input_type, output_type, checkpoint_path: str=None, tokenizer_path: str=None
     ):
         super().__init__(input_type, output_type)
         self.checkpoint_path = checkpoint_path
@@ -34,5 +34,5 @@ class ServeLLaMA(PythonServer):
 
 
 if __name__ == "__main__":
-    component = ServeLLaMA(input_type=PromptRequest, output_type=Response)
+    component = ServeLLaMA(input_type=PromptRequest, output_type=Response,)
     app = L.LightningApp(component)

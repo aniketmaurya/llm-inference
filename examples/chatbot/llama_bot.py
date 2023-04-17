@@ -30,4 +30,5 @@ class ChatBotApp(L.LightningFlow):
         return frontend.StreamlitFrontend(render_fn=ui_render_fn)
 
 
-app = L.LightningApp(ChatBotApp())
+if __name__ == "__main__":
+    app = L.LightningApp(ChatBotApp())
