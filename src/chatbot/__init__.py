@@ -1,1 +1,2 @@
-from .chain import LLaMAChatBot, ServerChatBot
+from .chain import LLaMAChatBot, ServerChatBot, DummyChatBot
+
