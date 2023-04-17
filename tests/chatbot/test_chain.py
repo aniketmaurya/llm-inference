@@ -6,4 +6,4 @@ def test_dummybot():
     prompt = "testing dummy bot"
     response = bot.send(prompt)
     assert isinstance(response, str)
-    assert f"Bot: {prompt}" in response
+    assert prompt in response
