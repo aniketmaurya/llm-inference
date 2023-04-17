@@ -18,6 +18,7 @@ def run(lightning_app_state):
     print("lightning_app_state", lightning_app_state)
 
     if "model" not in st.session_state:
+        # build unique conversational chain per session state
         chain = build_server_chain(lightning_app_state.llm_url)
         st.session_state["model"] = chain
         logger.info("loaded model into state session")

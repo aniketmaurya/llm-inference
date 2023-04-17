@@ -8,6 +8,16 @@ from pydantic import BaseModel
 logger = logging.getLogger(__name__)
 
 
+class DummyLLM(LLM, BaseModel):
+    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+        return f"Bot: {prompt}"
+
+    @property
+    def _llm_type(self) -> str:
+        """Return type of llm."""
+        return "Dummy LLM"
+
+
 class ServerLLM(LLM, BaseModel):
     url: str = ""
 
