@@ -1,4 +1,4 @@
-# LLaMA Inference API 🦙
+# LLaMA Inference API and Chatbot 🦙
 
 ![project banner](https://github.com/aniketmaurya/LLaMA-Inference-API/raw/main/assets/llama-inference-api-min.png)
 
@@ -12,7 +12,7 @@ or
 pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main
 ```
 
-> **Note**: You need to manually install and setup [Lit-LLaMA](https://github.com/Lightning-AI/lit-llama) to use this project.
+> **Note**: You need to manually install [Lit-LLaMA](https://github.com/Lightning-AI/lit-llama) and setup the model weights to use this project.
 
 ```
 pip install lit-llama@git+https://github.com/Lightning-AI/lit-llama.git@main

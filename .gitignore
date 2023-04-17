@@ -154,3 +154,4 @@ cython_debug/
 *.ckpt
 *.tokenizer
 *.model
+.DS_Store
