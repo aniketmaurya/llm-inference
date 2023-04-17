@@ -42,11 +42,12 @@ jobs:
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
 
-      - name: Install dependencies
+      - name: Install
         run: |
           python --version
           pip --version
           python -m pip install --upgrade pip coverage pytest
+          pip install .
           pip list
         shell: bash
 
