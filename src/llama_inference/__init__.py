@@ -3,4 +3,4 @@
 from .model import LLaMAInference
 from .serve import ServeLLaMA
 
-__version__ = "0.0.2post1"
+__version__ = "0.0.3"
