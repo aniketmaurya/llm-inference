@@ -5,8 +5,7 @@ from collections import deque
 from langchain.chains import ConversationChain
 from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
 
-from .base import DummyLLM, ServerLLM
-
+from .base import DummyLLM, LLaMALLM, ServerLLM
 
 logger = logging.getLogger(__name__)
 
@@ -31,13 +30,13 @@ def build_server_chain(
 
 
 class BaseChatBot:
-    def __init__(self, llm, input_key="input", output_key="response") -> None:
+    def __init__(self, llm, input_key="input", output_key="response", verbose=False) -> None:
         memory = ConversationSummaryBufferMemory(
             llm=llm, output_key=output_key, input_key=input_key
         )
         self.chain = ConversationChain(
             llm=llm,
-            verbose=True,
+            verbose=verbose,
             memory=memory,
             output_key=output_key,
             input_key=input_key,
@@ -45,6 +44,9 @@ class BaseChatBot:
 
     def send(self, msg: str) -> str:
         return self.chain.predict(input=msg)
+
+    def predict(self, input: str)-> str:
+        return self.chain.predict(input=input)
 
     @property
     def history(self):
@@ -55,12 +57,16 @@ class BaseChatBot:
 
 
 class DummyChatBot(BaseChatBot):
-    def __init__(self) -> None:
-        super().__init__(llm=DummyLLM())
+    def __init__(self, verbose=True) -> None:
+        super().__init__(llm=DummyLLM(), verbose=verbose)
+
+class ServerChatBot(BaseChatBot):
+    def __init__(self, url: str, input_key="input", output_key="response", verbose=False) -> None:
+        llm = ServerLLM(url=url)
+        super().__init__(llm, input_key, output_key, verbose)
 
 
 class LLaMAChatBot(BaseChatBot):
-    def __init__(self, checkpoint_path:str, tokenizer_path:str) -> None:
-        from llama_inference import LLaMAInference
-        model = LLaMAInference(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path, dtype="bfloat16")
-        super().__init__(llm=model)
+    def __init__(self, checkpoint_path: str, tokenizer_path: str, verbose=False) -> None:
+        llm = LLaMALLM(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path)
+        super().__init__(llm=llm, verbose=verbose)

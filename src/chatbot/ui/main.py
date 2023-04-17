@@ -5,7 +5,7 @@ import rich
 import streamlit as st
 from streamlit_chat import message
 
-from chatserver.chain import build_server_chain
+from chatbot import ServerChatBot
 
 logger = logging.getLogger(__name__)
 
@@ -19,12 +19,12 @@ def run(lightning_app_state):
 
     if "model" not in st.session_state:
         # build unique conversational chain per session state
-        chain = build_server_chain(lightning_app_state.llm_url)
-        st.session_state["model"] = chain
+        bot = ServerChatBot(lightning_app_state.llm_url)
+        st.session_state["model"] = bot
         logger.info("loaded model into state session")
 
     else:
-        chain = st.session_state["model"]
+        bot = st.session_state["model"]
 
     # From here down is all the StreamLit UI.
     st.set_page_config(page_title="LLaMA Demo", page_icon=":robot:")
@@ -44,8 +44,8 @@ def run(lightning_app_state):
 
     if user_input:
         rich.print("user input:", user_input)
-        output = chain.predict(input=user_input)
-        rich.print("buffer:", chain.memory.buffer)
+        output = bot.predict(input=user_input)
+        rich.print("buffer:", bot.memory.buffer)
 
         st.session_state.past.append(user_input)
         st.session_state.generated.append(output)
