@@ -71,11 +71,11 @@ def _generate(
 class LLaMAInference:
     def __init__(
         self,
+        checkpoint_path: Optional[Path] = None,
+        tokenizer_path: Optional[Path] = None,
         model_size: str = "7B",
         dtype: Optional[str] = None,
         quantize: Optional[str] = None,
-        checkpoint_path: Optional[Path] = None,
-        tokenizer_path: Optional[Path] = None,
         accelerator: str = "auto",
         devices: int = 1,
     ) -> None:
