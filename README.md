@@ -53,3 +53,18 @@ app = L.LightningApp(component)
 ```bash
 lightning run app app.py
 ```
+
+## How to use the Chatbot
+
+```python
+from chatbot import LLaMAChatBot
+
+checkpoint_path = f"../../weights/state_dict.pth"
+tokenizer_path = f"../../weights/tokenizer.model"
+
+bot = LLaMAChatBot(
+    checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path
+)
+
+print(bot.send("hi, what is the capital of France?"))
+```
