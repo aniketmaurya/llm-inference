@@ -1,4 +1,4 @@
-# LLaMA Inference API and Chatbot 🦙
+# Large Language Model (LLM) Inference API and Chatbot 🦙
 
 ![project banner](https://github.com/aniketmaurya/LLaMA-Inference-API/raw/main/assets/llama-inference-api-min.png)
 
