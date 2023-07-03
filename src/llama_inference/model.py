@@ -97,7 +97,7 @@ class LLaMAInference:
 
     def __init__(
         self,
-        checkpoint_dir: Path = Path(f"checkpoints/tiie/falcon-7b"),
+        checkpoint_dir: Path = Path(f"checkpoints/tiiuae/falcon-7b"),
         quantize: Literal["llm.int8", "gptq.int4"] = None,
         accelerator: str = "auto",
         strategy: str = "auto",
