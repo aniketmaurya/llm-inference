@@ -4,7 +4,7 @@ import lightning as L
 from lightning.app.components import PythonServer
 from pydantic import BaseModel
 
-from llama_inference.model import LLaMAInference
+from llm_inference.model import LLMInference
 
 
 class PromptRequest(BaseModel):
@@ -28,7 +28,7 @@ class ServeLLaMA(PythonServer):
         self.tokenizer_path = tokenizer_path
 
     def setup(self, *args: Any, **kwargs: Any) -> None:
-        self._model = LLaMAInference(
+        self._model = LLMInference(
             checkpoint_path=self.checkpoint_path,
             tokenizer_path=self.tokenizer_path,
             dtype="bfloat16",

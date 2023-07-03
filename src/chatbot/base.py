@@ -5,7 +5,7 @@ import requests
 from langchain.llms.base import LLM
 from pydantic import BaseModel
 
-from llama_inference import LLaMAInference
+from llm_inference import LLMInference
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class LLaMALLM(LLM, BaseModel):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         if not self.model:
-            self.model = LLaMAInference(
+            self.model = LLMInference(
                 checkpoint_path=self.checkpoint_path,
                 tokenizer_path=self.tokenizer_path,
                 dtype="bfloat16",

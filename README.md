@@ -26,15 +26,14 @@ pip install lit-gpt@git+https://github.com/Lightning-AI/lit-gpt.git@main
 ## For Inference
 
 ```python
-from llama_inference import LLaMAInference
+from llama_inference import LLMInference
 import os
 
 WEIGHTS_PATH = os.environ["WEIGHTS"]
 
-checkpoint_path = f"{WEIGHTS_PATH}/lit-llama/7B/state_dict.pth"
-tokenizer_path = f"{WEIGHTS_PATH}/lit-llama/tokenizer.model"
+checkpoint_dir = f"checkpoints/tiiuae/falcon-7b"
 
-model = LLaMAInference(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path, dtype="bfloat16")
+model = LLMInference(checkpoint_dir=checkpoint_dir, precision="bf16-true")
 
 print(model("New York is located in"))
 ```
