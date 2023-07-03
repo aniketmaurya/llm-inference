@@ -16,25 +16,24 @@ pip install llama-inference[chatbot]
 pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main
 ```
 
-> **Note**: You need to manually install [Lit-LLaMA](https://github.com/Lightning-AI/lit-llama) and setup the model weights to use this project.
+> **Note**: You need to manually install [Lit-GPT](https://github.com/Lightning-AI/lit-gpt) and setup the model weights to use this project.
 
 ```
-pip install lit-llama@git+https://github.com/Lightning-AI/lit-llama.git@main
+pip install lit-gpt@git+https://github.com/Lightning-AI/lit-gpt.git@main
 ```
 
 
 ## For Inference
 
 ```python
-from llama_inference import LLaMAInference
+from llm_inference import LLMInference
 import os
 
 WEIGHTS_PATH = os.environ["WEIGHTS"]
 
-checkpoint_path = f"{WEIGHTS_PATH}/lit-llama/7B/state_dict.pth"
-tokenizer_path = f"{WEIGHTS_PATH}/lit-llama/tokenizer.model"
+checkpoint_dir = f"checkpoints/tiiuae/falcon-7b"
 
-model = LLaMAInference(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path, dtype="bfloat16")
+model = LLMInference(checkpoint_dir=checkpoint_dir, precision="bf16-true")
 
 print(model("New York is located in"))
 ```
@@ -46,7 +45,7 @@ Create a Python file `app.py` and initialize the `ServeLLaMA` App.
 
 ```python
 # app.py
-from llama_inference.serve import ServeLLaMA, Response, PromptRequest
+from llm_inference.serve import ServeLLaMA, Response, PromptRequest
 
 import lightning as L
 

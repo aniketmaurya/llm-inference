@@ -73,7 +73,7 @@ class ServerChatBot(BaseChatBot):
 
 class LLaMAChatBot(BaseChatBot):
     def __init__(
-        self, checkpoint_path: str, tokenizer_path: str, verbose=False
+        self, checkpoint_dir: str, verbose=False
     ) -> None:
-        llm = LLaMALLM(checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path)
+        llm = LLaMALLM(checkpoint_dir=checkpoint_dir)
         super().__init__(llm=llm, verbose=verbose)
