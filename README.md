@@ -16,10 +16,10 @@ pip install llama-inference[chatbot]
 pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main
 ```
 
-> **Note**: You need to manually install [Lit-LLaMA](https://github.com/Lightning-AI/lit-llama) and setup the model weights to use this project.
+> **Note**: You need to manually install [Lit-GPT](https://github.com/Lightning-AI/lit-gpt) and setup the model weights to use this project.
 
 ```
-pip install lit-llama@git+https://github.com/Lightning-AI/lit-llama.git@main
+pip install lit-gpt@git+https://github.com/Lightning-AI/lit-gpt.git@main
 ```
 
 
