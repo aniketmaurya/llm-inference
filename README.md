@@ -26,7 +26,7 @@ pip install lit-gpt@git+https://github.com/Lightning-AI/lit-gpt.git@main
 ## For Inference
 
 ```python
-from llama_inference import LLMInference
+from llm_inference import LLMInference
 import os
 
 WEIGHTS_PATH = os.environ["WEIGHTS"]
@@ -45,7 +45,7 @@ Create a Python file `app.py` and initialize the `ServeLLaMA` App.
 
 ```python
 # app.py
-from llama_inference.serve import ServeLLaMA, Response, PromptRequest
+from llm_inference.serve import ServeLLaMA, Response, PromptRequest
 
 import lightning as L
 

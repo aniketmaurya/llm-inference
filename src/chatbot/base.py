@@ -21,16 +21,14 @@ class DummyLLM(LLM, BaseModel):
 
 
 class LLaMALLM(LLM, BaseModel):
-    checkpoint_path: str = ""
-    tokenizer_path: str = ""
+    checkpoint_dir: str = ""
     model: Any = None
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
         if not self.model:
             self.model = LLMInference(
-                checkpoint_path=self.checkpoint_path,
-                tokenizer_path=self.tokenizer_path,
-                dtype="bfloat16",
+                checkpoint_dir=self.checkpoint_dir,
+                precision="bf16-mixed",
             )
 
         return self.model(prompt)
@@ -38,7 +36,7 @@ class LLaMALLM(LLM, BaseModel):
     @property
     def _llm_type(self) -> str:
         """Return type of llm."""
-        return "LLaMA LLM"
+        return "Lit-GPT LLM"
 
 
 class ServerLLM(LLM, BaseModel):
