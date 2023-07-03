@@ -174,7 +174,7 @@ class LLMInference:
         max_new_tokens: int = 100,
         top_k: int = 200,
         temperature: float = 0.1,
-        eos_id = None
+        eos_id=None,
     ) -> str:
         tokenizer = self.tokenizer
         model = self.model
@@ -192,7 +192,7 @@ class LLMInference:
             max_seq_length=max_returned_tokens,
             temperature=temperature,
             top_k=top_k,
-            eos_id=eos_id
+            eos_id=eos_id,
         )
         t = time.perf_counter() - t0
 
@@ -220,12 +220,12 @@ class LLMInference:
     ) -> str:
         sample = {"instruction": prompt, "input": input}
         prompt = generate_prompt(sample)
-        output= self.__call__(
+        output = self.__call__(
             prompt=prompt,
             max_new_tokens=max_new_tokens,
             top_k=top_k,
             temperature=temperature,
-            eos_id=self.tokenizer.eos_id
+            eos_id=self.tokenizer.eos_id,
         )
         output = output.split("### Response:")[1].strip()
         return output

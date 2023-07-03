@@ -62,12 +62,10 @@ lightning run app app.py
 ```python
 from chatbot import LLaMAChatBot
 
-checkpoint_path = f"../../weights/state_dict.pth"
-tokenizer_path = f"../../weights/tokenizer.model"
+checkpoint_dir = f"../../weights"
 
 bot = LLaMAChatBot(
-    checkpoint_path=checkpoint_path, tokenizer_path=tokenizer_path
-)
+    checkpoint_dir=checkpoint_dir)
 
 print(bot.send("hi, what is the capital of France?"))
 ```
