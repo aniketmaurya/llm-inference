@@ -124,6 +124,8 @@ class LLMInference:
     ) -> None:
         self.quantize = quantize
 
+        checkpoint_dir = Path(checkpoint_dir)
+
         if strategy == "fsdp":
             auto_wrap_policy = partial(
                 transformer_auto_wrap_policy, transformer_layer_cls={Block}
