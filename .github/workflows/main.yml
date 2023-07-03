@@ -51,7 +51,7 @@ jobs:
           python -m pip install --upgrade pip coverage pytest
           pip install . --quiet --find-links $TORCH_URL
           pip install ".[chatbot]" --quiet --find-links $TORCH_URL
-          pip install lit-llama@git+https://github.com/Lightning-AI/lit-llama.git@main
+          pip install lit-gpt@git+https://github.com/Lightning-AI/lit-gpt.git@main
           pip list
         shell: bash
 
