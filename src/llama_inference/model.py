@@ -11,13 +11,11 @@ import lightning as L
 import torch
 from dotenv import load_dotenv
 from lightning.fabric.strategies import FSDPStrategy
-from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
-
 from lit_gpt import GPT, Config, Tokenizer
+from lit_gpt.adapter_v2 import add_adapter_v2_parameters_to_linear_layers
 from lit_gpt.model import Block
 from lit_gpt.utils import check_valid_checkpoint_dir, lazy_load, quantization
-from lit_gpt.adapter_v2 import add_adapter_v2_parameters_to_linear_layers
-
+from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 
 load_dotenv()
 
@@ -105,7 +103,7 @@ class LLaMAInference:
         strategy: str = "auto",
         devices: int = 1,
         precision: str = "bf16-true",
-        adapter_path: Optional[Path] = None
+        adapter_path: Optional[Path] = None,
     ) -> None:
         self.quantize = quantize
 
@@ -140,8 +138,10 @@ class LLaMAInference:
         checkpoint_path = checkpoint_dir / model_file
 
         if adapter_path:
-            model = self.load_adapter_model(checkpoint_path=checkpoint_path, adapter_path=adapter_path)
-        
+            model = self.load_adapter_model(
+                checkpoint_path=checkpoint_path, adapter_path=adapter_path
+            )
+
         else:
             model = self.load_model(checkpoint_path=checkpoint_path)
 
@@ -180,10 +180,16 @@ class LLaMAInference:
         output = tokenizer.decode(y)
         output = output.split("### Response:")[1].strip()
         tokens_generated = y.size(0) - prompt_length
-        fabric.print(f"\n\nTime for inference: {t:.02f} sec total, {tokens_generated / t:.02f} tokens/sec", file=sys.stderr)
+        fabric.print(
+            f"\n\nTime for inference: {t:.02f} sec total, {tokens_generated / t:.02f} tokens/sec",
+            file=sys.stderr,
+        )
         if fabric.device.type == "cuda":
-            fabric.print(f"Memory used: {torch.cuda.max_memory_allocated() / 1e9:.02f} GB", file=sys.stderr)
-        
+            fabric.print(
+                f"Memory used: {torch.cuda.max_memory_allocated() / 1e9:.02f} GB",
+                file=sys.stderr,
+            )
+
         return output
 
     def eval(self):
@@ -194,16 +200,27 @@ class LLaMAInference:
         quantize = self.quantize
         config = self.config
 
-        fabric.print(f"Loading model {str(checkpoint_path)!r} with {config.__dict__}", file=sys.stderr)
+        fabric.print(
+            f"Loading model {str(checkpoint_path)!r} with {config.__dict__}",
+            file=sys.stderr,
+        )
         t0 = time.time()
         with fabric.init_module(empty_init=True), quantization(quantize):
             model = GPT(config)
-        fabric.print(f"Time to instantiate model: {time.time() - t0:.02f} seconds.", file=sys.stderr)
+        fabric.print(
+            f"Time to instantiate model: {time.time() - t0:.02f} seconds.",
+            file=sys.stderr,
+        )
 
         t0 = time.time()
         with lazy_load(checkpoint_path) as checkpoint:
-            model.load_state_dict(checkpoint.get("model", checkpoint), strict=quantize is None)
-        fabric.print(f"Time to load the model weights: {time.time() - t0:.02f} seconds.", file=sys.stderr)
+            model.load_state_dict(
+                checkpoint.get("model", checkpoint), strict=quantize is None
+            )
+        fabric.print(
+            f"Time to load the model weights: {time.time() - t0:.02f} seconds.",
+            file=sys.stderr,
+        )
         return model
 
     def load_lora_model(self, checkpoint_path, lora_path: str):
@@ -214,16 +231,27 @@ class LLaMAInference:
         quantize = self.quantize
         config = self.config
 
-        fabric.print(f"Loading model {str(checkpoint_path)!r} with {config.__dict__}", file=sys.stderr)
+        fabric.print(
+            f"Loading model {str(checkpoint_path)!r} with {config.__dict__}",
+            file=sys.stderr,
+        )
         t0 = time.time()
         with fabric.init_module(empty_init=True), quantization(quantize):
             model = GPT(config)
             add_adapter_v2_parameters_to_linear_layers(model)
-        fabric.print(f"Time to instantiate model: {time.time() - t0:.02f} seconds.", file=sys.stderr)
+        fabric.print(
+            f"Time to instantiate model: {time.time() - t0:.02f} seconds.",
+            file=sys.stderr,
+        )
 
         t0 = time.time()
-        with lazy_load(checkpoint_path) as checkpoint, lazy_load(adapter_path) as adapter_checkpoint:
+        with lazy_load(checkpoint_path) as checkpoint, lazy_load(
+            adapter_path
+        ) as adapter_checkpoint:
             checkpoint.update(adapter_checkpoint.get("model", adapter_checkpoint))
             model.load_state_dict(checkpoint, strict=quantize is None)
-        fabric.print(f"Time to load the model weights: {time.time() - t0:.02f} seconds.", file=sys.stderr)
+        fabric.print(
+            f"Time to load the model weights: {time.time() - t0:.02f} seconds.",
+            file=sys.stderr,
+        )
         return model
