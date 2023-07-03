@@ -2,7 +2,7 @@ import lightning as L
 import lightning.app.frontend as frontend
 
 from chatbot.ui import ui_render_fn
-from llama_inference.serve import PromptRequest, Response, ServeLLaMA
+from llm_inference.serve import PromptRequest, Response, ServeLLaMA
 
 checkpoint_path = "weights/state_dict.pth"
 tokenizer_path = "weights/tokenizer.model"
