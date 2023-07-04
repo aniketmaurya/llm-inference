@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class DummyLLM(LLM, BaseModel):
-    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
         return f"Bot: {prompt}"
 
     @property
@@ -24,7 +24,7 @@ class LLaMALLM(LLM, BaseModel):
     checkpoint_dir: str = ""
     model: Any = None
 
-    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
         if not self.model:
             self.model = LLMInference(
                 checkpoint_dir=self.checkpoint_dir,
@@ -42,7 +42,7 @@ class LLaMALLM(LLM, BaseModel):
 class ServerLLM(LLM, BaseModel):
     url: str = ""
 
-    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
         """Run the LLM on the given prompt and input."""
         if self.url == "":
             raise Exception("Server URL not set!")

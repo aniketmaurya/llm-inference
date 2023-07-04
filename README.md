@@ -5,15 +5,15 @@
 Inference API for LLaMA
 
 ```
-pip install llama-inference
+pip install llm-inference
 
 # to use chatbot
-pip install llama-inference[chatbot]
+pip install llm-inference[chatbot]
 ```
 
 ### Install from main branch
 ```bash
-pip install git+https://github.com/aniketmaurya/llama-inference-api.git@main
+pip install git+https://github.com/aniketmaurya/llm-inference.git@main
 ```
 
 > **Note**: You need to manually install [Lit-GPT](https://github.com/Lightning-AI/lit-gpt) and setup the model weights to use this project.
@@ -62,7 +62,7 @@ lightning run app app.py
 ```python
 from chatbot import LLaMAChatBot
 
-checkpoint_dir = f"../../weights"
+checkpoint_dir = "weights"
 
 bot = LLaMAChatBot(
     checkpoint_dir=checkpoint_dir)

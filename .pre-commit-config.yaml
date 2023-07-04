@@ -1,7 +1,7 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 default_language_version:
-  python: python3.8
+  python: python3.9
 
 ci:
   autofix_prs: true
@@ -48,7 +48,7 @@ repos:
     rev: v3.8.0
     hooks:
       - id: pyupgrade
-        args: [ --py36-plus ]
+        args: [ --py39-plus ]
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.5
@@ -59,15 +59,6 @@ repos:
         args:
           - -s
           - "B404,B602,B603,B607"
-
-  - repo: local
-    hooks:
-      - id: clean
-        name: clean
-        entry: make
-        args: [ "clean" ]
-        language: system
-        pass_filenames: false
 
   - repo: https://github.com/kynan/nbstripout
     rev: 0.6.1
