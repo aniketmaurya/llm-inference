@@ -3,8 +3,7 @@ import logging
 from collections import deque
 
 from langchain.chains import ConversationChain
-from langchain.chains.conversation.memory import \
-    ConversationSummaryBufferMemory
+from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
 
 from .base import DummyLLM, LLaMALLM, ServerLLM
 
