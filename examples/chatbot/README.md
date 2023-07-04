@@ -1,5 +1,5 @@
 # ChatServer
- 
+
 ChatBot System built with LangChain and Lightning AI
 
 ## How to run
