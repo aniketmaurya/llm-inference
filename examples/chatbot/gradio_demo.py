@@ -1,10 +1,11 @@
+import random
+import time
+
 import gradio as gr
 from langchain.prompts import PromptTemplate
-from rich import print
 
 from chatbot import LitGPTConversationChain, LitGPTLLM
 from chatbot.templates import longchat_template
-from llm_inference import prepare_weights
 
 path = "checkpoints/lmsys/longchat-7b-16k"
 llm = LitGPTLLM(checkpoint_dir=path)
@@ -15,14 +16,17 @@ prompt = PromptTemplate(
 bot.prompt = prompt
 
 
-def chat(prompt):
-    return bot.send(prompt)
-
-
 with gr.Blocks() as demo:
-    name = gr.Textbox(label="Type your msg")
-    output = gr.Textbox(label="Reply")
-    greet_btn = gr.Button("Send")
-    greet_btn.click(fn=chat, inputs=name, outputs=output, api_name="chat")
+    chatbot = gr.Chatbot()
+    msg = gr.Textbox()
+    clear = gr.ClearButton([msg, chatbot])
 
-demo.launch()
+    def respond(message, chat_history):
+        bot_message = bot.send(message)
+        chat_history.append((message, bot_message))
+        return "", chat_history
+
+    msg.submit(respond, [msg, chatbot], [msg, chatbot])
+
+if __name__ == "__main__":
+    demo.launch()
