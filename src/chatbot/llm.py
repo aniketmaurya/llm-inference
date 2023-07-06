@@ -23,20 +23,19 @@ class DummyLLM(LLM, BaseModel):
 class LitGPTLLM(LLM, BaseModel):
     checkpoint_dir: str = ""
     model: Any = None
-    precision: str
-    quantize: Optional[str]
-    accelerator: Optional[str]
+    quantize: Optional[str] = None
+    accelerator: Optional[str] = "auto"
 
-    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
+    def _call(self, prompt: str, stop: Optional[list[str]] = None, temperature=1e-5, **kwargs: Any,) -> str:
         if not self.model:
             self.model = LLMInference(
                 checkpoint_dir=self.checkpoint_dir,
-                precision=self.precision,
                 quantize=self.quantize,
                 accelerator=self.accelerator,
+                **kwargs
             )
 
-        return self.model.chat(prompt, temperature=0.00001)
+        return self.model.chat(prompt, temperature=temperature)
 
     @property
     def _llm_type(self) -> str:
