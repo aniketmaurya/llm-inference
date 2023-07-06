@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class DummyLLM(LLM, BaseModel):
     def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
-        return f"Bot: Hi, I am a helpful chatbot!"
+        return f"Hi, I am a helpful chatbot!"
 
     @property
     def _llm_type(self) -> str:
