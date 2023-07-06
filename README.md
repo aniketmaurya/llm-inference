@@ -13,6 +13,12 @@ pip install llm-inference
 pip install git+https://github.com/aniketmaurya/llm-inference.git@main
 ```
 
+> **Note**: You need to manually install [Lit-GPT](https://github.com/Lightning-AI/lit-gpt) and setup the model weights to use this project.
+
+```
+pip install lit_gpt@git+https://github.com/aniketmaurya/install-lit-gpt.git@install
+```
+
 ## For Inference
 
 ```python
