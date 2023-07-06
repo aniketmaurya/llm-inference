@@ -3,8 +3,9 @@ from typing import Any, List, Optional
 
 import requests
 from langchain.llms.base import LLM
-from llm_inference import LLMInference
 from pydantic import BaseModel
+
+from llm_inference import LLMInference
 
 logger = logging.getLogger(__name__)
 
