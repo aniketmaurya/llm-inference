@@ -3,15 +3,14 @@ from typing import Any, List, Optional
 
 import requests
 from langchain.llms.base import LLM
-from pydantic import BaseModel
-
 from llm_inference import LLMInference
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 
 
 class DummyLLM(LLM, BaseModel):
-    def _call(self, prompt: str, **kwargs) -> str:
+    def _call(self, prompt: str, stop: Optional[list] = None, **kwargs) -> str:
         return f"Hi, I am a helpful chatbot!"
 
     @property
@@ -29,6 +28,7 @@ class LitGPTLLM(LLM, BaseModel):
     def _call(
         self,
         prompt: str,
+        stop: Optional[list] = None,
         temperature=1e-5,
         **kwargs: Any,
     ) -> str:
@@ -52,7 +52,7 @@ class ServerLLM(LLM, BaseModel):
     url: str = ""
     TIMEOUT: float = 60.0
 
-    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
+    def _call(self, prompt: str, stop: Optional[list] = None) -> str:
         """Run the LLM on the given prompt and input."""
         if self.url == "":
             raise Exception("Server URL not set!")
