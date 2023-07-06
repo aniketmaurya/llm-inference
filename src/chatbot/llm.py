@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class DummyLLM(LLM, BaseModel):
     def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
-        return f"Bot: {prompt}"
+        return f"Bot: Hi, I am a helpful chatbot!"
 
     @property
     def _llm_type(self) -> str:
@@ -23,15 +23,25 @@ class DummyLLM(LLM, BaseModel):
 class LitGPTLLM(LLM, BaseModel):
     checkpoint_dir: str = ""
     model: Any = None
+    quantize: Optional[str] = None
+    accelerator: Optional[str] = "auto"
 
-    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
+    def _call(
+        self,
+        prompt: str,
+        stop: Optional[list[str]] = None,
+        temperature=1e-5,
+        **kwargs: Any,
+    ) -> str:
         if not self.model:
             self.model = LLMInference(
                 checkpoint_dir=self.checkpoint_dir,
-                precision="bf16-mixed",
+                quantize=self.quantize,
+                accelerator=self.accelerator,
+                **kwargs,
             )
 
-        return self.model(prompt)
+        return self.model.chat(prompt, temperature=temperature)
 
     @property
     def _llm_type(self) -> str:

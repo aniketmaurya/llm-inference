@@ -32,6 +32,22 @@ print(model("New York is located in"))
 ```
 
 
+## How to use the Chatbot
+
+```python
+from chatbot import LitGPTConversationChain, LitGPTLLM
+from llm_inference import prepare_weights
+from rich import print
+
+
+path = str(prepare_weights("lmsys/longchat-7b-16k"))
+llm = LitGPTLLM(checkpoint_dir=path)
+bot = LitGPTConversationChain.from_llm(llm=llm, verbose=True)
+
+print(bot.send("hi, what is the capital of France?"))
+```
+
+
 ## For deploying as a REST API
 
 Create a Python file `app.py` and initialize the `ServeLLaMA` App.
@@ -48,17 +64,4 @@ app = L.LightningApp(component)
 
 ```bash
 lightning run app app.py
-```
-
-## How to use the Chatbot
-
-```python
-from chatbot import LitGPTChatBot
-
-checkpoint_dir = "weights"
-
-bot = LitGPTChatBot(
-    checkpoint_dir=checkpoint_dir)
-
-print(bot.send("hi, what is the capital of France?"))
 ```

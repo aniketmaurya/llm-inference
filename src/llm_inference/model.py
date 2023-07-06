@@ -17,6 +17,8 @@ from lit_gpt.model import Block
 from lit_gpt.utils import check_valid_checkpoint_dir, lazy_load, quantization
 from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 
+from .token_manipulation import get_stop_tokens
+
 load_dotenv()
 
 WEIGHTS_PATH = os.environ.get("WEIGHTS")
@@ -178,7 +180,7 @@ class LLMInference:
         model = self.model
         fabric = self.fabric
 
-        encoded = tokenizer.encode(prompt, device=model.device)
+        encoded = tokenizer.encode(prompt, device=fabric.device)
         prompt_length = encoded.size(0)
         max_returned_tokens = prompt_length + max_new_tokens
 
@@ -226,6 +228,22 @@ class LLMInference:
             eos_id=self.tokenizer.eos_id,
         )
         output = output.split("### Response:")[1].strip()
+        return output
+
+    def chat(
+        self,
+        prompt: str,
+        max_new_tokens: int = 100,
+        top_k: int = 200,
+        temperature: float = 0.1,
+    ) -> str:
+        output = self.__call__(
+            prompt=prompt,
+            max_new_tokens=max_new_tokens,
+            top_k=top_k,
+            temperature=temperature,
+            eos_id=self.tokenizer.eos_id,
+        )
         return output
 
     def eval(self):

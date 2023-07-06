@@ -50,6 +50,7 @@ jobs:
           pip --version
           python -m pip install --upgrade pip coverage pytest
           pip install --index-url https://download.pytorch.org/whl/nightly/cpu --pre 'torch>=2.1.0dev'
+          pip install lit_gpt@git+https://github.com/aniketmaurya/install-lit-gpt.git@install
           pip install . --quiet
           pip list
         shell: bash

@@ -1,4 +1,4 @@
-from chatbot.chain import DummyChatBot
+from chatbot.conversation_chain import DummyChatBot
 
 
 def test_dummybot():
