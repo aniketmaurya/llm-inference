@@ -43,8 +43,8 @@ markdown_extensions:
   - pymdownx.superfences
   - admonition
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: "!!python/name:materialx.emoji.twemoji"
+      emoji_generator: "!!python/name:materialx.emoji.to_svg"
   - toc:
       permalink: true
 

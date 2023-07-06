@@ -1,0 +1,6 @@
+pytest
+pre-commit
+black
+isort
+build
+twine

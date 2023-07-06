@@ -5,7 +5,7 @@ from collections import deque
 from langchain.chains import ConversationChain
 from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
 
-from .base import DummyLLM, LLaMALLM, ServerLLM
+from .base import DummyLLM, LitGPTLLM, ServerLLM
 
 logger = logging.getLogger(__name__)
 
@@ -71,7 +71,7 @@ class ServerChatBot(BaseChatBot):
         super().__init__(llm, input_key, output_key, verbose)
 
 
-class LLaMAChatBot(BaseChatBot):
+class LitGPTChatBot(BaseChatBot):
     def __init__(self, checkpoint_dir: str, verbose=False) -> None:
-        llm = LLaMALLM(checkpoint_dir=checkpoint_dir)
+        llm = LitGPTLLM(checkpoint_dir=checkpoint_dir)
         super().__init__(llm=llm, verbose=verbose)

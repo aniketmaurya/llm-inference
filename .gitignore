@@ -155,3 +155,4 @@ cython_debug/
 *.tokenizer
 *.model
 .DS_Store
+checkpoints/

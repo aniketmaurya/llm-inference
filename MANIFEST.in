@@ -32,8 +32,7 @@ exclude docs
 
 # Include the Requirements
 include requirements/requirements.txt
-include requirements/chatbot.txt
-recursive-include requirements/requirements *.txt
+recursive-include requirements/ *.txt
 
 # Exclude Makefile
 exclude Makefile
