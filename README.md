@@ -49,6 +49,10 @@ print(bot.send("hi, what is the capital of France?"))
 
 ## Launch Chatbot App
 
+<video width="320" height="240" controls>
+  <source src="/assets/chatbot-demo.mov" type="video/mp4">
+</video>
+
 **1. Download weights**
 ```py
 from llm_inference import prepare_weights
