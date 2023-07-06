@@ -35,12 +35,14 @@ print(model("New York is located in"))
 ## How to use the Chatbot
 
 ```python
-from chatbot.chain import LitGPTChatBot
-from llm_inference import  prepare_weights
+from chatbot import LitGPTConversationChain, LitGPTLLM
+from llm_inference import prepare_weights
+from rich import print
 
-path = str(prepare_weights("EleutherAI/pythia-70m"))
-bot = LitGPTChatBot(checkpoint_dir=path, verbose=True)
 
+path = str(prepare_weights("lmsys/longchat-7b-16k"))
+llm = LitGPTLLM(checkpoint_dir=path)
+bot = LitGPTConversationChain.from_llm(llm=llm, verbose=True)
 
 print(bot.send("hi, what is the capital of France?"))
 ```
