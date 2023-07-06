@@ -1,9 +1,9 @@
-from chatbot.conversation_chain import DummyChatBot
+from chatbot.conversation_chain import LitGPTConversationChain
 
 
 def test_dummybot():
-    bot = DummyChatBot()
-    prompt = "testing dummy bot"
+    bot = LitGPTConversationChain.from_llm("dummy")
+    prompt = "Hello, I am testing you!"
     response = bot.send(prompt)
     assert isinstance(response, str)
-    assert prompt in response
+    assert response == "Hi, I am a helpful chatbot!"

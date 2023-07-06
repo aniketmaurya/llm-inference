@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 
 class DummyLLM(LLM, BaseModel):
-    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
-        return f"Bot: Hi, I am a helpful chatbot!"
+    def _call(self, prompt: str, stop: Optional[list] = None, **kwargs) -> str:
+        return f"Hi, I am a helpful chatbot!"
 
     @property
     def _llm_type(self) -> str:
@@ -29,7 +29,7 @@ class LitGPTLLM(LLM, BaseModel):
     def _call(
         self,
         prompt: str,
-        stop: Optional[list[str]] = None,
+        stop: Optional[list] = None,
         temperature=1e-5,
         **kwargs: Any,
     ) -> str:
@@ -53,7 +53,7 @@ class ServerLLM(LLM, BaseModel):
     url: str = ""
     TIMEOUT: float = 60.0
 
-    def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
+    def _call(self, prompt: str, stop: Optional[list] = None) -> str:
         """Run the LLM on the given prompt and input."""
         if self.url == "":
             raise Exception("Server URL not set!")
