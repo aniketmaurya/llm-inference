@@ -35,7 +35,7 @@ print(model("New York is located in"))
 ## How to use the Chatbot
 
 ```python
-from chatbot import LitGPTConversationChain, LitGPTLLM
+from llm_chain import LitGPTConversationChain, LitGPTLLM
 from llm_inference import prepare_weights
 from rich import print
 

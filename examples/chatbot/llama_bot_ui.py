@@ -1,7 +1,7 @@
 import lightning as L
 import lightning.app.frontend as frontend
 
-from chatbot.ui import ui_render_fn
+from llm_chain.ui import ui_render_fn
 from llm_inference.serve import PromptRequest, Response, ServeLLaMA
 
 checkpoint_path = "weights/state_dict.pth"

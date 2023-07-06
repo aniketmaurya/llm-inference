@@ -1,4 +1,4 @@
-from chatbot.conversation_chain import LitGPTConversationChain
+from llm_chain.conversation_chain import LitGPTConversationChain
 
 
 def test_dummybot():
