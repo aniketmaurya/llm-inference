@@ -26,7 +26,7 @@ class LitGPTLLM(LLM, BaseModel):
     quantize: Optional[str] = None
     accelerator: Optional[str] = "auto"
 
-    def _call(self, prompt: str, stop: Optional[list[str]] = None, temperature=1e-5, **kwargs: Any,) -> str:
+    def _call(self, prompt: str, stop: Optional[list[str]] = None, temperature=0.8, **kwargs: Any,) -> str:
         if not self.model:
             self.model = LLMInference(
                 checkpoint_dir=self.checkpoint_dir,

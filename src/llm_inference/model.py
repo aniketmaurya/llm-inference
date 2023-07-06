@@ -180,7 +180,7 @@ class LLMInference:
         model = self.model
         fabric = self.fabric
 
-        encoded = tokenizer.encode(prompt, device=model.device)
+        encoded = tokenizer.encode(prompt, device=fabric.device)
         prompt_length = encoded.size(0)
         max_returned_tokens = prompt_length + max_new_tokens
 
@@ -242,7 +242,7 @@ class LLMInference:
             max_new_tokens=max_new_tokens,
             top_k=top_k,
             temperature=temperature,
-            eos_id=get_stop_tokens(self.tokenizer),
+            eos_id=self.tokenizer.eos_id,
         )
         return output
 
