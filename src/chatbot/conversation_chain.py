@@ -15,6 +15,7 @@ class LitGPTConversationChain(ConversationChain):
     @staticmethod
     def from_llm(
         llm: Union[str, LitGPTLLM],
+        memory: Optional[None] = None,
         input_key="input",
         output_key="response",
         verbose=False,
@@ -26,10 +27,11 @@ class LitGPTConversationChain(ConversationChain):
         if llm == "server":
             llm = ServerLLM(url=url)
 
-        memory = ConversationSummaryBufferMemory(
-            llm=llm, output_key=output_key, input_key=input_key
-        )
-        chain = ConversationChain(
+        if not memory:
+            memory = ConversationSummaryBufferMemory(
+                llm=llm, output_key=output_key, input_key=input_key
+            )
+        chain = LitGPTConversationChain(
             llm=llm,
             verbose=verbose,
             memory=memory,
@@ -60,6 +62,9 @@ class LitGPTConversationChain(ConversationChain):
             output_key=output_key,
             verbose=verbose,
         )
+
+    def send(self, prompt: str, **kwargs):
+        return self(prompt)["response"]
 
     @property
     def history(self):
