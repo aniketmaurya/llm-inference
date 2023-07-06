@@ -47,6 +47,21 @@ bot = LitGPTConversationChain.from_llm(llm=llm, verbose=True)
 print(bot.send("hi, what is the capital of France?"))
 ```
 
+## Launch Chatbot App
+
+**1. Download weights**
+```py
+from llm_inference import prepare_weights
+path = prepare_weights("lmsys/longchat-7b-16k")
+```
+
+**2. Launch Gradio App**
+
+```
+python examples/chatbot/gradio_demo.py
+```
+
+
 
 ## For deploying as a REST API
 
