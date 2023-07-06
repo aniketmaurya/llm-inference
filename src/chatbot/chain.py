@@ -1,6 +1,7 @@
 """Wrapper around Lightning App."""
 import logging
 from collections import deque
+from typing import Optional
 
 from langchain.chains import ConversationChain
 from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
@@ -72,6 +73,18 @@ class ServerChatBot(BaseChatBot):
 
 
 class LitGPTChatBot(BaseChatBot):
-    def __init__(self, checkpoint_dir: str, verbose=False) -> None:
-        llm = LitGPTLLM(checkpoint_dir=checkpoint_dir)
+    def __init__(
+        self,
+        checkpoint_dir: str,
+        precision: str = 32,
+        quantize: Optional[str] = None,
+        accelerator: str = "auto",
+        verbose=False,
+    ) -> None:
+        llm = LitGPTLLM(
+            checkpoint_dir=checkpoint_dir,
+            precision=precision,
+            quantize=quantize,
+            accelerator=accelerator,
+        )
         super().__init__(llm=llm, verbose=verbose)
