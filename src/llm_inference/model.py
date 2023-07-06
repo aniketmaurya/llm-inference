@@ -110,8 +110,6 @@ def _generate(
 
 
 class LLMInference:
-    INSTRUCTION_TUNED: bool = False
-
     def __init__(
         self,
         checkpoint_dir: Path = Path(f"checkpoints/tiiuae/falcon-7b"),
@@ -165,7 +163,7 @@ class LLMInference:
             model = self.load_model(checkpoint_path=checkpoint_path)
 
         model.eval()
-        self.model = model = fabric.setup_module(model)
+        self.model = fabric.setup_module(model)
         self.tokenizer = Tokenizer(checkpoint_dir)
 
     def __call__(

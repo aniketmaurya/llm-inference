@@ -1,2 +1,9 @@
 python-dotenv
-lightning>=2.0.0
+huggingface_hub
+lit_gpt @git+https://github.com/aniketmaurya/install-lit-gpt.git@install
+langchain>=0.0.94
+openai>=0.26.5
+streamlit>=1.19.0
+streamlit-chat>=0.0.2.1
+transformers>=4.26.1
+fastapi>=0.88.0

@@ -20,7 +20,7 @@ class DummyLLM(LLM, BaseModel):
         return "Dummy LLM"
 
 
-class LLaMALLM(LLM, BaseModel):
+class LitGPTLLM(LLM, BaseModel):
     checkpoint_dir: str = ""
     model: Any = None
 
@@ -41,6 +41,7 @@ class LLaMALLM(LLM, BaseModel):
 
 class ServerLLM(LLM, BaseModel):
     url: str = ""
+    TIMEOUT: float = 60.0
 
     def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
         """Run the LLM on the given prompt and input."""
@@ -54,7 +55,10 @@ class ServerLLM(LLM, BaseModel):
         assert isinstance(prompt, str)
         json_data = {"prompt": prompt}
         response = requests.post(
-            url=self.url + "/predict", headers=headers, json=json_data
+            url=self.url + "/predict",
+            headers=headers,
+            json=json_data,
+            timeout=self.TIMEOUT,
         )
         logger.error(response.raise_for_status())
         return response.json()["result"]
