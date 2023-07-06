@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class DummyLLM(LLM, BaseModel):
     def _call(self, prompt: str, stop: Optional[list[str]] = None) -> str:
-        return f"Bot: {prompt}"
+        return f"Bot: Hi, I am a helpful chatbot!"
 
     @property
     def _llm_type(self) -> str:
@@ -36,7 +36,7 @@ class LitGPTLLM(LLM, BaseModel):
                 accelerator=self.accelerator,
             )
 
-        return self.model(prompt)
+        return self.model.chat(prompt, temperature=0.00001)
 
     @property
     def _llm_type(self) -> str:

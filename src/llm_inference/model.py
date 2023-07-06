@@ -6,7 +6,7 @@ import warnings
 from functools import partial
 from pathlib import Path
 from typing import Any, Literal, Optional, Union
-
+from .token_manipulation import get_stop_tokens
 import lightning as L
 import torch
 from dotenv import load_dotenv
@@ -226,6 +226,22 @@ class LLMInference:
             eos_id=self.tokenizer.eos_id,
         )
         output = output.split("### Response:")[1].strip()
+        return output
+
+    def chat(
+        self,
+        prompt: str,
+        max_new_tokens: int = 100,
+        top_k: int = 200,
+        temperature: float = 0.1,
+    ) -> str:
+        output = self.__call__(
+            prompt=prompt,
+            max_new_tokens=max_new_tokens,
+            top_k=top_k,
+            temperature=temperature,
+            eos_id=get_stop_tokens(self.tokenizer),
+        )
         return output
 
     def eval(self):

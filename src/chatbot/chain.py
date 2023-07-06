@@ -76,7 +76,7 @@ class LitGPTChatBot(BaseChatBot):
     def __init__(
         self,
         checkpoint_dir: str,
-        precision: str = 32,
+        precision: str = "bf16-mixed",
         quantize: Optional[str] = None,
         accelerator: str = "auto",
         verbose=False,
