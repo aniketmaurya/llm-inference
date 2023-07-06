@@ -6,7 +6,7 @@ import warnings
 from functools import partial
 from pathlib import Path
 from typing import Any, Literal, Optional, Union
-from .token_manipulation import get_stop_tokens
+
 import lightning as L
 import torch
 from dotenv import load_dotenv
@@ -16,6 +16,8 @@ from lit_gpt.adapter_v2 import add_adapter_v2_parameters_to_linear_layers
 from lit_gpt.model import Block
 from lit_gpt.utils import check_valid_checkpoint_dir, lazy_load, quantization
 from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
+
+from .token_manipulation import get_stop_tokens
 
 load_dotenv()
 
