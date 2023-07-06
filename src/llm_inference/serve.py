@@ -39,6 +39,6 @@ if __name__ == "__main__":
     component = ServeLitGPT(
         input_type=PromptRequest,
         output_type=Response,
-        checkpoint_dir="examples/chatbot/checkpoints/lmsys/longchat-7b-16k/"
+        checkpoint_dir="examples/chatbot/checkpoints/lmsys/longchat-7b-16k/",
     )
     app = L.LightningApp(component)

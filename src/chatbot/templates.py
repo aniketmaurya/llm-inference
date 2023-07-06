@@ -17,8 +17,8 @@ Answer:"""
 
 
 longchat_template = (
-            "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, "
-            "detailed, and polite answers to the user's questions.\n"
-            "Context: {history}\n"
-            "USER: {input} ASSISTANT:"
-        )
+    "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, "
+    "detailed, and polite answers to the user's questions.\n"
+    "Context: {history}\n"
+    "USER: {input} ASSISTANT:"
+)
