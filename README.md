@@ -6,9 +6,6 @@ Inference API for LLMs like LLaMA and Falcon powered by Lit-GPT from [Lightning 
 
 ```
 pip install llm-inference
-
-# to use chatbot
-pip install llm-inference[chatbot]
 ```
 
 ### Install from main branch
@@ -16,24 +13,14 @@ pip install llm-inference[chatbot]
 pip install git+https://github.com/aniketmaurya/llm-inference.git@main
 ```
 
-> **Note**: You need to manually install [Lit-GPT](https://github.com/Lightning-AI/lit-gpt) and setup the model weights to use this project.
-
-```
-pip install lit_gpt@git+https://github.com/aniketmaurya/install-lit-gpt.git@install
-```
-
-
 ## For Inference
 
 ```python
-from llm_inference import LLMInference
-import os
+from llm_inference import LLMInference, prepare_weights
+from rich import print
 
-WEIGHTS_PATH = os.environ["WEIGHTS"]
-
-checkpoint_dir = f"checkpoints/tiiuae/falcon-7b"
-
-model = LLMInference(checkpoint_dir=checkpoint_dir, precision="bf16-true")
+path = prepare_weights("EleutherAI/pythia-70m")
+model = LLMInference(checkpoint_dir=path)
 
 print(model("New York is located in"))
 ```
@@ -60,11 +47,11 @@ lightning run app app.py
 ## How to use the Chatbot
 
 ```python
-from chatbot import LLaMAChatBot
+from chatbot import LitGPTChatBot
 
 checkpoint_dir = "weights"
 
-bot = LLaMAChatBot(
+bot = LitGPTChatBot(
     checkpoint_dir=checkpoint_dir)
 
 print(bot.send("hi, what is the capital of France?"))
