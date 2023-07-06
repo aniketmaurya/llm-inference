@@ -1,11 +1,8 @@
-import random
-import time
-
 import gradio as gr
 from langchain.prompts import PromptTemplate
 
-from chatbot import LitGPTConversationChain, LitGPTLLM
-from chatbot.templates import longchat_template
+from llm_chain import LitGPTConversationChain, LitGPTLLM
+from llm_chain.templates import longchat_template
 
 path = "checkpoints/lmsys/longchat-7b-16k"
 llm = LitGPTLLM(checkpoint_dir=path)

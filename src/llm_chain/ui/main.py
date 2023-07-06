@@ -5,7 +5,7 @@ import rich
 import streamlit as st
 from streamlit_chat import message
 
-from chatbot import ServerChatBot
+from llm_chain import ServerChatBot
 
 logger = logging.getLogger(__name__)
 
