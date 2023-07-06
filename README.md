@@ -1,6 +1,6 @@
 # Large Language Model (LLM) Inference API and Chatbot 🦙
 
-![project banner](https://github.com/aniketmaurya/llm-inference/raw/main/assets/llama-inference-api-min.png)
+![project banner](https://github.com/aniketmaurya/llm-inference/raw/main/assets/llm-inference-min.png)
 
 Inference API for LLMs like LLaMA and Falcon powered by Lit-GPT from [Lightning AI](https://lightning.ai)
 
