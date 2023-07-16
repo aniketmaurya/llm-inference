@@ -6,7 +6,7 @@ from llm_inference import prepare_weights
 
 # path = prepare_weights("lmsys/longchat-13b-16k")
 path = "checkpoints/lmsys/longchat-13b-16k"
-llm = LitGPTLLM(checkpoint_dir=path)
+llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")
 bot = LitGPTConversationChain.from_llm(llm=llm, prompt=longchat_prompt_template)
 
 with gr.Blocks() as demo:
