@@ -236,14 +236,41 @@ class LLMInference:
         max_new_tokens: int = 100,
         top_k: int = 200,
         temperature: float = 0.1,
+        eos_id=None,
     ) -> str:
-        output = self.__call__(
-            prompt=prompt,
-            max_new_tokens=max_new_tokens,
-            top_k=top_k,
+        tokenizer = self.tokenizer
+        model = self.model
+        fabric = self.fabric
+
+        encoded = tokenizer.encode(prompt, device=fabric.device)
+        prompt_length = encoded.size(0)
+        max_returned_tokens = model.config.block_size
+
+        t0 = time.perf_counter()
+        y = _generate(
+            model,
+            encoded,
+            max_returned_tokens,
+            max_seq_length=max_returned_tokens,
             temperature=temperature,
+            top_k=top_k,
             eos_id=self.tokenizer.eos_id,
         )
+        t = time.perf_counter() - t0
+
+        model.reset_cache()
+        output = tokenizer.decode(y[prompt_length:])
+        tokens_generated = y.size(0) - prompt_length
+        fabric.print(
+            f"\n\nTime for inference: {t:.02f} sec total, {tokens_generated / t:.02f} tokens/sec",
+            file=sys.stderr,
+        )
+        if fabric.device.type == "cuda":
+            fabric.print(
+                f"Memory used: {torch.cuda.max_memory_allocated() / 1e9:.02f} GB",
+                file=sys.stderr,
+            )
+
         return output
 
     def eval(self):
