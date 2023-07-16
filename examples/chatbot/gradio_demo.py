@@ -1,20 +1,13 @@
 import gradio as gr
-from langchain.prompts import PromptTemplate
 
 from llm_chain import LitGPTConversationChain, LitGPTLLM
+from llm_chain.templates import longchat_prompt_template
 from llm_inference import prepare_weights
-
-from llm_chain.templates import longchat_template
 
 # path = prepare_weights("lmsys/longchat-13b-16k")
 path = "checkpoints/lmsys/longchat-13b-16k"
 llm = LitGPTLLM(checkpoint_dir=path)
-bot = LitGPTConversationChain.from_llm(llm=llm)
-prompt = PromptTemplate(
-    input_variables=["input", "history"], template=longchat_template
-)
-bot.prompt = prompt
-
+bot = LitGPTConversationChain.from_llm(llm=llm, prompt=longchat_prompt_template)
 
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot()

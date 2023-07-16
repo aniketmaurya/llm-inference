@@ -4,7 +4,8 @@ from collections import deque
 from typing import Optional, Union
 
 from langchain.chains import ConversationChain
-from langchain.chains.conversation.memory import ConversationSummaryBufferMemory
+from langchain.chains.conversation.memory import ConversationBufferWindowMemory
+from langchain.prompts import PromptTemplate
 
 from .llm import DummyLLM, LitGPTLLM, ServerLLM
 
@@ -15,6 +16,7 @@ class LitGPTConversationChain(ConversationChain):
     @staticmethod
     def from_llm(
         llm: Union[str, LitGPTLLM],
+        prompt: Optional[PromptTemplate] = None,
         memory: Optional[None] = None,
         input_key="input",
         output_key="response",
@@ -28,8 +30,13 @@ class LitGPTConversationChain(ConversationChain):
             llm = ServerLLM(url=url)
 
         if not memory:
-            memory = ConversationSummaryBufferMemory(
-                llm=llm, output_key=output_key, input_key=input_key
+            memory = ConversationBufferWindowMemory(
+                llm=llm,
+                k=5,
+                output_key=output_key,
+                input_key=input_key,
+                ai_prefix="Assistant",
+                human_prefix="User",
             )
         chain = LitGPTConversationChain(
             llm=llm,
@@ -38,6 +45,8 @@ class LitGPTConversationChain(ConversationChain):
             output_key=output_key,
             input_key=input_key,
         )
+        if prompt:
+            chain.prompt = prompt
         return chain
 
     @staticmethod

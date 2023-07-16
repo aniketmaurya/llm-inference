@@ -40,8 +40,8 @@ from llm_inference import prepare_weights
 from rich import print
 
 
-path = str(prepare_weights("lmsys/longchat-7b-16k"))
-llm = LitGPTLLM(checkpoint_dir=path)
+path = str(prepare_weights("lmsys/longchat-13b-16k"))
+llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")  # 8.4GB GPU memory
 bot = LitGPTConversationChain.from_llm(llm=llm, verbose=True)
 
 print(bot.send("hi, what is the capital of France?"))
@@ -56,7 +56,7 @@ print(bot.send("hi, what is the capital of France?"))
 **1. Download weights**
 ```py
 from llm_inference import prepare_weights
-path = prepare_weights("lmsys/longchat-7b-16k")
+path = prepare_weights("lmsys/longchat-13b-16k")
 ```
 
 **2. Launch Gradio App**
