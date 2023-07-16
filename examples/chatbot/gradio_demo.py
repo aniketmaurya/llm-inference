@@ -16,7 +16,7 @@ with gr.Blocks() as demo:
 
     def respond(message, chat_history):
         bot_message = bot.send(message)
-        chat_history.append((f"👤 {message}", f"🤖 {bot_message}"))
+        chat_history.append((f"👤 {message}", f"{bot_message}"))
         return "", chat_history
 
     msg.submit(respond, [msg, chatbot], [msg, chatbot])
