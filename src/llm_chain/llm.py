@@ -25,6 +25,7 @@ class LitGPTLLM(LLM, BaseModel):
     model: Any = None
     quantize: Optional[str] = None
     accelerator: Optional[str] = "auto"
+    model_configs: dict = {}
 
     def _call(
         self,
@@ -34,14 +35,15 @@ class LitGPTLLM(LLM, BaseModel):
         **kwargs: Any,
     ) -> str:
         if not self.model:
+            print("Loading model for first time...")
             self.model = LLMInference(
                 checkpoint_dir=self.checkpoint_dir,
                 quantize=self.quantize,
                 accelerator=self.accelerator,
-                **kwargs,
+                **self.model_configs,
             )
 
-        return self.model.chat(prompt, temperature=temperature)
+        return self.model.chat(prompt, temperature=temperature, **kwargs)
 
     @property
     def _llm_type(self) -> str:
