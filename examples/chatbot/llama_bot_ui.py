@@ -1,3 +1,6 @@
+# please use the gradio demo instead - https://github.com/aniketmaurya/llm-inference/blob/main/examples/chatbot/gradio_demo.py
+# This script has to be updated to the latest version
+
 import lightning as L
 import lightning.app.frontend as frontend
 
