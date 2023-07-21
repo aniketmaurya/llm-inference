@@ -34,6 +34,11 @@ print(model("New York is located in"))
 
 ## How to use the Chatbot
 
+
+<div style="overflow:hidden;margin-left:auto;margin-right:auto;border-radius:10px;width:100%;max-width:682px;position:relative"><div style="width:100%;padding-bottom:64.22287390029325%"></div><iframe width="682" height="438" title="" src="https://snappify.com/embed/4d90490d-da09-4648-a8e6-fd9fb4e37aaa?responsive=1" allow="clipboard-write" allowfullscreen="" style="background:#89CFFDFF;position:absolute;left:0;top:0;width:100%" frameborder="0"></iframe></div>
+
+
+
 ```python
 from llm_chain import LitGPTConversationChain, LitGPTLLM
 from llm_inference import prepare_weights
