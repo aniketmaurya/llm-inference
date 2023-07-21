@@ -4,7 +4,6 @@ from llm_chain import LitGPTConversationChain, LitGPTLLM
 from llm_chain.templates import llama2_prompt_template
 from llm_inference import prepare_weights
 
-
 path = str(prepare_weights("meta-llama/Llama-2-7b-chat-hf"))
 llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")
 llm("warmup")
