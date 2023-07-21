@@ -23,7 +23,6 @@ pip install lit_gpt@git+https://github.com/aniketmaurya/install-lit-gpt.git@inst
 
 ```python
 from llm_inference import LLMInference, prepare_weights
-from rich import print
 
 path = prepare_weights("EleutherAI/pythia-70m")
 model = LLMInference(checkpoint_dir=path)
@@ -34,16 +33,12 @@ print(model("New York is located in"))
 
 ## How to use the Chatbot
 
-
-<div style="overflow:hidden;margin-left:auto;margin-right:auto;border-radius:10px;width:100%;max-width:682px;position:relative"><div style="width:100%;padding-bottom:64.22287390029325%"></div><iframe width="682" height="438" title="" src="https://snappify.com/embed/4d90490d-da09-4648-a8e6-fd9fb4e37aaa?responsive=1" allow="clipboard-write" allowfullscreen="" style="background:#89CFFDFF;position:absolute;left:0;top:0;width:100%" frameborder="0"></iframe></div>
-
+![chatbot image](./assets/llm-inference-llama2_chatbot.png)
 
 
 ```python
 from llm_chain import LitGPTConversationChain, LitGPTLLM
 from llm_inference import prepare_weights
-from rich import print
-
 
 path = str(prepare_weights("meta-llama/Llama-2-7b-chat-hf"))
 llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")  # 7GB GPU memory
@@ -55,7 +50,7 @@ print(bot.send("hi, what is the capital of France?"))
 ## Launch Chatbot App
 
 <video width="320" height="240" controls>
-  <source src="/assets/chatbot-demo.mov" type="video/mp4">
+  <source src="/assets/chatbot-demo.mp4" type="video/mp4">
 </video>
 
 **1. Download weights**
