@@ -1,18 +1,20 @@
 import gradio as gr
 
 from llm_chain import LitGPTConversationChain, LitGPTLLM
-from llm_chain.templates import longchat_prompt_template
+from llm_chain.templates import llama2_prompt_template
 from llm_inference import prepare_weights
 
-# path = prepare_weights("lmsys/longchat-13b-16k")
-path = "checkpoints/lmsys/longchat-13b-16k"
+path = str(prepare_weights("meta-llama/Llama-2-7b-chat-hf"))
 llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")
-bot = LitGPTConversationChain.from_llm(llm=llm, prompt=longchat_prompt_template)
+llm("warmup")
+bot = LitGPTConversationChain.from_llm(llm=llm, prompt=llama2_prompt_template)
+
 
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot()
     msg = gr.Textbox()
     clear = gr.ClearButton([msg, chatbot])
+    clear.click(fn=bot.clear)
 
     def respond(message, chat_history):
         bot_message = bot.send(message)
