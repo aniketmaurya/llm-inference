@@ -7,3 +7,5 @@ streamlit-chat>=0.0.2.1
 transformers>=4.26.1
 fastapi>=0.88.0
 gradio
+bitsandbytes>=0.40.0
+sentencepiece

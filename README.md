@@ -40,9 +40,9 @@ from llm_inference import prepare_weights
 from rich import print
 
 
-path = str(prepare_weights("lmsys/longchat-13b-16k"))
-llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")  # 8.4GB GPU memory
-bot = LitGPTConversationChain.from_llm(llm=llm, verbose=True)
+path = str(prepare_weights("meta-llama/Llama-2-7b-chat-hf"))
+llm = LitGPTLLM(checkpoint_dir=path, quantize="bnb.nf4")  # 7GB GPU memory
+bot = LitGPTConversationChain.from_llm(llm=llm, prompt=llama2_prompt_template)
 
 print(bot.send("hi, what is the capital of France?"))
 ```
@@ -56,31 +56,11 @@ print(bot.send("hi, what is the capital of France?"))
 **1. Download weights**
 ```py
 from llm_inference import prepare_weights
-path = prepare_weights("lmsys/longchat-13b-16k")
+path = prepare_weights("meta-llama/Llama-2-7b-chat-hf")
 ```
 
 **2. Launch Gradio App**
 
 ```
 python examples/chatbot/gradio_demo.py
-```
-
-
-
-## For deploying as a REST API
-
-Create a Python file `app.py` and initialize the `ServeLLaMA` App.
-
-```python
-# app.py
-from llm_inference.serve import ServeLLaMA, Response, PromptRequest
-
-import lightning as L
-
-component = ServeLLaMA(input_type=PromptRequest, output_type=Response)
-app = L.LightningApp(component)
-```
-
-```bash
-lightning run app app.py
 ```
