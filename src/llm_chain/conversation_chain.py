@@ -1,4 +1,5 @@
 """Wrapper around Lightning App."""
+
 import logging
 from collections import deque
 from typing import Optional, Union
