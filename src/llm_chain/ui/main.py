@@ -1,4 +1,5 @@
 """Python file to serve as the frontend"""
+
 import logging
 
 import rich
